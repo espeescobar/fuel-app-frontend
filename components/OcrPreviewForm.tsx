@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { apiFetch } from "../lib/api";
 
-type UserItem = { id: string; name: string };
+type UserItem = { id: string; name: string; email?: string };
 type StandardTrip = { id: string; name: string; distanceKm: number };
 
 type Props = {
@@ -347,7 +347,6 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
       {/* --- BOTÓN DE SUBIR FOTO MEJORADO --- */}
       <div style={{ marginBottom: '16px' }}>
         
-        
         {/* El input real está oculto (display: none) */}
         <input
           id="tablero-upload"
@@ -365,31 +364,35 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '1.5rem',
+            padding: file ? '10px' : '1.5rem', /* Menos padding si hay foto para que ocupe todo */
             border: `2px dashed ${file ? 'var(--hot-pink-300)' : 'var(--sky-300)'}`,
             borderRadius: 'var(--radius)',
             backgroundColor: file ? 'var(--hot-pink-50)' : 'var(--sky-50)',
-            color: file ? 'var(--hot-pink-500)' : 'var(--sky-600)',
+            color: 'var(--sky-600)',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
-            textAlign: 'center'
+            textAlign: 'center',
+            overflow: 'hidden' /* Asegura que la imagen no se salga de los bordes redondeados */
           }}
         >
-          <span style={{ fontSize: '2rem', marginBottom: '8px' }}>
-            {file ? '✅' : '📸'}
-          </span>
-          <span style={{ fontWeight: '600', fontSize: '1rem' }}>
-            {file ? '¡Foto lista!' : 'Toca aquí'}
-          </span>
-          
+          {previewUrl ? (
+            // Si hay foto, mostramos SOLO la foto usando tu clase CSS para que respete el tamaño
+            <div className="img-preview" style={{ width: '100%' }}>
+              <img src={previewUrl} alt="Previsualización" style={{ margin: '0 auto', display: 'block' }} />
+            </div>
+          ) : (
+            // Si no hay foto, mostramos la camarita original
+            <>
+              <span style={{ fontSize: '2rem', marginBottom: '8px' }}>
+                📸
+              </span>
+              <span style={{ fontWeight: '600', fontSize: '1rem' }}>
+                Toca aquí para subir la foto
+              </span>
+            </>
+          )}
         </label>
       </div>
-
-      {previewUrl && (
-        <div className="img-preview">
-          <img src={previewUrl} alt="Previsualización" style={{ maxWidth: '100%', marginTop: '10px', borderRadius: '8px' }} />
-        </div>
-      )}
 
       <div className="row" style={{ marginTop: 12 }}>
         <div>

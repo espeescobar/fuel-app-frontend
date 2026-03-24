@@ -382,13 +382,18 @@ button:disabled {
   margin-top: 0.75rem;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.08);
 }
 
 .img-preview img {
   display: block;
-  margin: 0;
-  max-width: 100%;
-  vertical-align: middle;
+  /* Centramos la imagen y le damos un poco de espacio arriba/abajo */
+  margin: 10px auto; 
+  
+  /* --- AQUÍ ESTÁ EL CAMBIO --- */
+  max-width: auto; /* <-- Ajusta este valor a tu gusto (ej: 200px o 300px) */
+  height: 300px;     /* Súper importante: mantiene la proporción para que no se vea estirada */
+  
+  /* Tus otros estilos bonitos */
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Opcional: una sombrita suave para que resalte */
 }
