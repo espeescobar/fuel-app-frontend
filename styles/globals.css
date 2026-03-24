@@ -1,0 +1,394 @@
+/* Fuel App — tema pastel celeste + rosado */
+:root {
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+
+  --sky-50: #f0f9ff;
+  --sky-100: #e0f2fe;
+  --sky-200: #bae6fd;
+  --sky-300: #7dd3fc;
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
+
+  --hot-pink-50: #fdf2f8;
+  --hot-pink-100: #fce7f3;
+  --hot-pink-200: #fbcfe8;
+  --hot-pink-300: #f9a8d4;
+  --hot-pink-400: #f472b6;
+  --hot-pink-500: #ec4899;
+
+  --white: #ffffff;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: rgba(14, 165, 233, 0.18);
+  --shadow: 0 10px 40px -12px rgba(14, 165, 233, 0.25), 0 4px 16px -8px rgba(244, 63, 94, 0.12);
+  --radius: 16px;
+  --radius-sm: 12px;
+  
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: linear-gradient(145deg, var(--sky-50) 0%, var(--hot-pink-50) 42%, var(--sky-100) 100%);
+  background-attachment: fixed;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Layout */
+.shell {
+  min-height: 100vh;
+  padding: clamp(1.25rem, 4vw, 2.5rem) 1rem 3rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.5rem, 4vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--sky-500), var(--hot-pink-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-header p,
+.lead {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 36rem;
+}
+
+/* Cards */
+.card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.card--accent-hot-pink {
+  border-color: rgba(163, 53, 71, 0.15);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 241, 242, 0.65));
+}
+
+.card--accent-sky {
+  border-color: rgba(14, 165, 233, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.75));
+}
+
+.card h2,
+.card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  margin: 1.5rem 0;
+  background: linear-gradient(90deg, transparent, var(--sky-200), var(--hot-pink-200), transparent);
+}
+
+/* Forms */
+label {
+  display: block;
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+label:first-of-type {
+  margin-top: 0;
+}
+
+input:not([type="file"]),
+select {
+  padding: 0.65rem 0.85rem;
+  margin-top: 0.35rem;
+  width: 100%;
+  border: 1px solid rgba(14, 165, 233, 0.22);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:not([type="file"]):focus,
+select:focus {
+  outline: none;
+  border-color: var(--sky-400);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+}
+
+input[type="file"] {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px dashed rgba(244, 63, 94, 0.35);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  padding: 0.65rem 1.15rem;
+  margin-top: 0.75rem;
+  width: 100%;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--sky-400);
+  color: white;
+  box-shadow: 0 4px 14px -4px rgba(14, 165, 233, 0.55);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 20px -4px rgba(14, 165, 233, 0.65);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--hot-pink-300), var(--hot-pink-400));
+  color: white;
+  box-shadow: 0 4px 14px -4px rgba(244, 63, 94, 0.45);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  box-shadow: 0 6px 20px -4px rgba(244, 63, 94, 0.55);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  color: var(--sky-400);
+  width: auto;
+  margin-top: 0.5rem;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(240, 249, 255, 0.95);
+  border-color: var(--sky-300);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.btn-row button {
+  width: auto;
+  margin-top: 0;
+  flex: 1 1 auto;
+  min-width: 140px;
+}
+
+/* Alerts */
+.alert {
+  margin-top: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.alert--error {
+  background: rgba(254, 205, 211, 0.45);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: #9f1239;
+}
+
+.alert--success {
+  background: rgba(186, 230, 253, 0.5);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  color: #0c4a6e;
+}
+
+/* List items / mini cards */
+.list-card {
+  border: 1px solid rgba(14, 165, 233, 0.12);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-top: 0.65rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.35));
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.list-card--hot-pink {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 241, 242, 0.45));
+  border-color: rgba(244, 63, 94, 0.12);
+}
+
+.list-card strong {
+  color: var(--sky-500);
+  font-weight: 600;
+}
+
+/* Table */
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table-wrap th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: rgba(240, 249, 255, 0.6);
+}
+
+.table-wrap td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.08);
+}
+
+.table-wrap tr:last-child td {
+  border-bottom: none;
+}
+
+.table-empty {
+  padding: 1.25rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Login hero */
+.login-hero {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-title {
+  margin: 4rem 0 0.5rem;
+  font-size: clamp(1.55rem, 4vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--sky-500), var(--hot-pink-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+.login-hero .badge {
+  /* Posicionamiento para pegarlo arriba y que ocupe todo el ancho */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  
+  /* Alineación del texto a la esquina izquierda con un poco de espacio */
+  text-align: left;
+  padding: 1rem 2rem;
+  
+  /* Diseño del rectángulo */
+  border-radius: 0; /* Quitamos la forma de píldora */
+  background: linear-gradient(90deg, var(--sky-300), var(--hot-pink-300));
+  border-bottom: 1px solid var(--border); /* Solo borde abajo para separar del fondo */
+  margin: 0;
+  
+  /* Tu estilo de texto (ligeramente ajustado para verse bien como header) */
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: white; /* Le puse tu rosado fuerte para que resalte, pero puedes volver a var(--text-muted) si prefieres */
+}
+/* Image preview */
+.img-preview {
+  margin-top: 0.75rem;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.08);
+}
+
+.img-preview img {
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  vertical-align: middle;
+}
