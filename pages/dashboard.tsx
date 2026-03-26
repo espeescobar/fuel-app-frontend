@@ -172,7 +172,7 @@ export default function DashboardPage() {
         }}>
           {/* Precio Referencial */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Precio ref.
             </span>
             <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
@@ -186,7 +186,7 @@ export default function DashboardPage() {
           
           {/* Estanque Estimado */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Estanque est.
             </span>
             <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
@@ -198,7 +198,7 @@ export default function DashboardPage() {
 
           {/* NUEVO: Odómetro */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Odómetro
             </span>
             <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
