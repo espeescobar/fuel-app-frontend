@@ -40,7 +40,6 @@ export default function DashboardPage() {
   const [totalCost, setTotalCost] = useState<string>("");
   const [filledAt, setFilledAt] = useState<string>("");
 
-  // NUEVO: Estado para controlar si el desplegable de cargas está abierto o cerrado
   const [showFillups, setShowFillups] = useState<boolean>(false);
 
   const formatDec = (val: any) => {
@@ -121,7 +120,6 @@ export default function DashboardPage() {
       setFilledAt("");
       await load();
       setStatus("Carga registrada.");
-      // Opcional: Abrir automáticamente el desplegable para que vea su carga nueva
       setShowFillups(true); 
     } catch (e: any) {
       setStatus(e?.message ?? "Error registrando carga");
@@ -132,6 +130,11 @@ export default function DashboardPage() {
     clearToken();
     router.replace("/login");
   }
+
+  // Obtenemos el odómetro más alto para mostrarlo
+  const maxOdometer = readings.length > 0 
+    ? Math.max(...readings.map(r => Number(r.odometerKm))) 
+    : null;
 
   return (
     <div className="container">
@@ -167,11 +170,12 @@ export default function DashboardPage() {
           border: '1px solid var(--border)',
           boxShadow: '0 4px 14px -4px rgba(14, 165, 233, 0.15)'
         }}>
+          {/* Precio Referencial */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Precio ref.
             </span>
-            <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
               {currentAvgPrice !== null && currentAvgPrice > 0 
                 ? `$${formatDec(currentAvgPrice)} / L` 
                 : (fillups.length > 0 ? `$${formatDec(fillups[0].pricePerLiter)} / L` : '---')}
@@ -180,20 +184,46 @@ export default function DashboardPage() {
           
           <div style={{ width: '1px', backgroundColor: 'var(--border)', height: '40px' }}></div>
           
+          {/* Estanque Estimado */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Estanque est.
             </span>
-            <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
               {currentLiters !== null ? `${formatDec(currentLiters)} L` : '---'}
+            </span>
+          </div>
+
+          <div style={{ width: '1px', backgroundColor: 'var(--border)', height: '40px' }}></div>
+
+          {/* NUEVO: Odómetro */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Odómetro
+            </span>
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
+              {maxOdometer !== null ? `${maxOdometer} km` : '---'}
+            </span>
+          </div>
+
+          <div style={{ width: '1px', backgroundColor: 'var(--border)', height: '40px' }}></div>
+
+          {/* NUEVO: Rendimiento (km/l) */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Rendimiento
+            </span>
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
+              {readings.length > 0 && readings[0].kmPerLiter 
+                ? `${formatDec(readings[0].kmPerLiter)} km/l` 
+                : '---'}
             </span>
           </div>
         </div>
 
         {token ? (() => {
-          const lastOdometer = readings.length > 0 
-            ? Math.max(...readings.map(r => Number(r.odometerKm))) 
-            : 0;
+          // Reutilizamos el maxOdometer que calculamos arriba
+          const lastOdometer = maxOdometer ?? 0;
 
           return (
             // @ts-ignore
@@ -232,8 +262,6 @@ export default function DashboardPage() {
       </div>
 
       <hr className="divider" style={{ marginBottom: '1.5rem' }} />
-
-      
       
     </div>
   );

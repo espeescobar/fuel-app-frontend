@@ -1,5 +1,6 @@
 export function getBackendUrl() {
-  const base = process.env.NEXT_PUBLIC_BACKEND_URL;
+  // Asegúrate de que este nombre sea IGUAL al que escribiste en Vercel
+  const base = process.env.NEXT_PUBLIC_API_URL; 
   if (!base) return "http://localhost:3001";
   return base;
 }
