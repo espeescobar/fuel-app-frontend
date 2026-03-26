@@ -205,20 +205,6 @@ export default function DashboardPage() {
               {maxOdometer !== null ? `${maxOdometer} km` : '---'}
             </span>
           </div>
-
-          <div style={{ width: '1px', backgroundColor: 'var(--border)', height: '40px' }}></div>
-
-          {/* NUEVO: Rendimiento (km/l) */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Rendimiento
-            </span>
-            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
-              {readings.length > 0 && readings[0].kmPerLiter 
-                ? `${formatDec(readings[0].kmPerLiter)} km/l` 
-                : '---'}
-            </span>
-          </div>
         </div>
 
         {token ? (() => {
