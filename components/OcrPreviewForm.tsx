@@ -330,9 +330,7 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
                     </option>
                   ))}
                 </select>
-                <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '6px' }}>
-                  * Mantén presionado <strong>Ctrl</strong> (o <strong>Cmd ⌘</strong> en Mac) para seleccionar a varios.
-                </small>
+                
               </>
             ) : (
               <p style={{ color: 'var(--hot-pink-400)', fontSize: '14px', margin: '4px 0' }}>
