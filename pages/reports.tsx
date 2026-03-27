@@ -82,19 +82,26 @@ export default function ReportsPage() {
     try {
       const fromIso = new Date(fromValue).toISOString();
       const toIso = new Date(toValue).toISOString();
-
-      const q = `/api/reports/usage-by-user?from=${encodeURIComponent(fromIso)}&to=${encodeURIComponent(toIso)}`;
+  
+      // 1. CAMBIO AQUÍ: Cambiamos 'usage-by-user' por una ruta global. 
+      // Nota: Verifica si en tu backend la ruta es '/api/reports/all' o simplemente '/api/reports'
+      const q = `/api/reports/all-usage?from=${encodeURIComponent(fromIso)}&to=${encodeURIComponent(toIso)}`;
+      
       const resp = await apiFetch<ReportResp>(q, { method: "GET", token });
       setReport(resp);
       setWarnings(resp.warnings ?? []);
-
+  
+      // 2. OBTENCIÓN DE CARGAS: 
+      // Asegúrate de que esta ruta '/api/fill-ups' en el backend no esté filtrando por usuario internamente.
       const f = await apiFetch<{ items: FillUpItem[] }>("/api/fill-ups", { method: "GET", token });
+      
       const filteredFillups = (f.items || []).filter(item => {
         const date = new Date(item.filledAt);
         return date >= new Date(fromIso) && date <= new Date(toIso);
       });
+      
       setFillups(filteredFillups);
-
+  
     } catch (e: any) {
       setError(e?.message ?? "Error obteniendo el reporte");
     }
@@ -331,7 +338,7 @@ export default function ReportsPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{ fontSize: '1.4rem' }}>⛽</span>
           <h3 style={{ margin: 0, color: showFillups ? 'var(--hot-pink-400)' : 'var(--hot-pink-400)' }}>
-            Historial de Cargas de Bencina
+            Cargas de Bencina
           </h3>
         </div>
         <div style={{ 
@@ -350,7 +357,7 @@ export default function ReportsPage() {
           <table>
             <thead>
               <tr>
-                <th>Fecha y Hora</th>
+                <th>Fecha</th>
                 <th>Litros Cargados</th>
                 <th>Costo Total</th>
                 <th>Precio Referencia</th>
