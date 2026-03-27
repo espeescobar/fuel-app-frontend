@@ -324,11 +324,16 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
                     borderRadius: '8px'
                   }}
                 >
-                  {users.filter(u => u.id !== user?.id) .map(user => (
-                      <option key={user.id} value={user.id} style={{ padding: '6px' }}>
-                        {user.name || user.email}
-                    </option>
-                  ))}
+                  {users
+  /* Filtramos usando el 'user' que viene de tu autenticación */
+  .filter(u => u.id !== user?.id) 
+  /* Cambiamos el nombre aquí a 'u' o 'item' para evitar confusiones */
+  .map(u => (
+    <option key={u.id} value={u.id} style={{ padding: '6px' }}>
+      {u.name || u.email}
+    </option>
+  ))
+}
                 </select>
                 
               </>
