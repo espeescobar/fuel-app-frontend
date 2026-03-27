@@ -397,3 +397,65 @@ button:disabled {
   border-radius: var(--radius);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Opcional: una sombrita suave para que resalte */
 }
+
+/* --- BOTTOM NAVIGATION (MOBILE) --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom); /* Para los iPhone sin botón */
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(14, 165, 233, 0.1);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex: 1;
+  height: 100%;
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-item:active {
+  transform: scale(0.95);
+}
+
+.nav-icon {
+  font-size: 1.4rem;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+/* Estado Activo (Cuando estás en esa página) */
+.nav-item.active {
+  color: var(--hot-pink-500);
+}
+
+.nav-item.active .nav-icon {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* IMPORTANTE: Ajuste para que el menú no tape el contenido de la página */
+.shell {
+  /* Cambia el padding inferior de tu .shell a algo más grande, como 6rem */
+  padding: clamp(1.25rem, 4vw, 2.5rem) 1rem 6rem; 
+}

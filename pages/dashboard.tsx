@@ -144,9 +144,6 @@ export default function DashboardPage() {
           {me ? <p className="lead">Sesión: {me.name ?? me.email}</p> : null}
         </div>
         <div className="btn-row" style={{ justifyContent: "flex-end" }}>
-          <button type="button" className="btn-secondary" onClick={() => router.replace("/reports")}>
-            Reportes
-          </button>
           <button type="button" className="btn-ghost" onClick={logout}>
             Cerrar sesión
           </button>

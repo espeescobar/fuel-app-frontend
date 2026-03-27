@@ -1,9 +1,18 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
+
+// Importamos tu nuevo y fabuloso menú inferior
+import BottomNav from "../components/BottomNav";
 
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  // Escondemos el menú en la página de login (y en la raíz si es que redirige)
+  const showBottomNav = router.pathname !== "/login" && router.pathname !== "/";
+
   return (
     <>
       <Head>
@@ -16,10 +25,13 @@ export default function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
+      
       <div className="shell">
         <Component {...pageProps} />
       </div>
+
+      {/* Aquí le decimos: Si NO es login, muestra la barra inferior */}
+      {showBottomNav && <BottomNav />}
     </>
   );
 }
-

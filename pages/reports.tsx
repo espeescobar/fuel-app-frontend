@@ -151,9 +151,6 @@ export default function ReportsPage() {
           <h1>Reportes</h1>
         </div>
         <div className="btn-row" style={{ justifyContent: "flex-end" }}>
-          <button type="button" className="btn-secondary" onClick={() => router.replace("/dashboard")}>
-            Dashboard
-          </button>
           <button type="button" className="btn-ghost" onClick={logout}>
             Cerrar sesión
           </button>
