@@ -94,7 +94,7 @@ export default function HistorialMensualPage() {
 
         {/* Tarjeta de Filtro - Usando tu estilo Hot Pink */}
         <div className="card card--accent-hot-pink">
-          <h3 style={{ color: 'var(--hot-pink-500)' }}>Selecciona el mes</h3>
+          <h3 style={{ color: 'var(--hot-pink-400)' }}>Selecciona el mes</h3>
           <div className="row" style={{ alignItems: 'flex-end' }}>
             <div>
               <label>Mes y Año</label>
@@ -110,7 +110,7 @@ export default function HistorialMensualPage() {
               {avgPrice > 0 && !isLoading && (
                 <div style={{ padding: '0.65rem', background: 'rgba(255,255,255,0.8)', borderRadius: 'var(--radius-sm)', border: '1px dashed var(--hot-pink-300)', textAlign: 'center' }}>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Precio Promedio del Mes</span>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--hot-pink-500)' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--hot-pink-400)' }}>
                     {formatMoney(avgPrice)} / L
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export default function HistorialMensualPage() {
 
         {/* Tabla de Resultados - Usando tu estilo Sky */}
         <div className="card card--accent-sky">
-          <h3 style={{ color: 'var(--sky-500)' }}>Consumo de los usuarios</h3>
+          <h3 style={{ color: 'var(--sky-400)' }}>Consumo de los usuarios</h3>
           
           <div className="table-wrap">
             <table>
@@ -129,8 +129,6 @@ export default function HistorialMensualPage() {
                 <tr>
                   <th>Usuario</th>
                   <th>Litros Usados</th>
-                  <th>Gasto Propio</th>
-                  <th>Gasto Compartido</th>
                   <th>Total a Pagar</th>
                 </tr>
               </thead>
@@ -147,7 +145,7 @@ export default function HistorialMensualPage() {
                       <td>{formatMoney(user.ownCost)}</td>
                       <td>{formatMoney(user.sharedCost)}</td>
                       <td>
-                        <strong style={{ color: 'var(--hot-pink-500)', fontSize: '1.1rem' }}>
+                        <strong style={{ color: 'var(--hot-pink-400)', fontSize: '1.1rem' }}>
                           {formatMoney(user.costUsed)}
                         </strong>
                       </td>
