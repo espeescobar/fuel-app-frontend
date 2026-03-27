@@ -216,7 +216,7 @@ export default function DashboardPage() {
             <OcrPreviewForm 
               token={token} 
               onCreated={() => load()} 
-              userId={user?.id}
+              userId={me?.id}
               users={users} 
               standardTrips={standardTrips} 
               lastOdometer={lastOdometer}
