@@ -6,13 +6,14 @@ type StandardTrip = { id: string; name: string; distanceKm: number };
 
 type Props = {
   token: string;
+  userId?: string; // <-- NUEVO: Recibimos el ID del usuario actual
   onCreated?: () => void;
   users?: UserItem[];
   standardTrips?: StandardTrip[];
-  lastOdometer?: number; // <-- NUEVO: Recibimos el último odómetro
+  lastOdometer?: number;
 };
 
-export default function OcrPreviewForm({ token, onCreated, users = [], standardTrips = [], lastOdometer = 0 }: Props) {
+export default function OcrPreviewForm({ token, userId, onCreated, users = [], standardTrips = [], lastOdometer = 0 }: Props) {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isPreviewing, setIsPreviewing] = useState(false);
@@ -33,8 +34,6 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
 
   const canSuggest = useMemo(() => !!file && !isPreviewing, [file, isPreviewing]);
   
-  // MODIFICADO: Ya no exigimos "!!file" para poder guardar.
-  // Ahora solo exigimos que los números estén escritos.
   const canSave = useMemo(() => 
     !isSaving && odometerKm.trim() !== "" && kmPerLiter.trim() !== "", 
     [isSaving, odometerKm, kmPerLiter]
@@ -48,21 +47,16 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
     else setPreviewUrl(null);
   }
 
-  // --- MAGIA MATEMÁTICA AQUÍ ---
   function handleStandardTripChange(tripId: string) {
     const trip = standardTrips.find(t => t.id === tripId);
     if (trip) {
       setTitle(trip.name);
-      
-      // Si tenemos un odómetro anterior, le sumamos la distancia del viaje
       if (lastOdometer > 0) {
         const calculatedOdo = lastOdometer + Number(trip.distanceKm);
-        setOdometerKm(calculatedOdo.toFixed(1)); // Se rellena solo con 1 decimal
+        setOdometerKm(calculatedOdo.toFixed(1));
       }
     } else {
       setTitle("");
-      // Opcional: limpiar el odómetro si deselecciona el viaje
-      // setOdometerKm(""); 
     }
   }
 
@@ -122,13 +116,11 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
   }
 
   async function save() {
-    // ELIMINADO: if (!file) return; <- Ahora permitimos guardar sin foto
     setError(null);
     setIsSaving(true);
     try {
       const fd = new FormData();
       
-      // Solo enviamos la imagen si el usuario subió una
       if (file) {
         fd.append("image", file);
       }
@@ -283,7 +275,7 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
             }} />
           </div>
 
-          {/* El checkbox original oculto (sigue haciendo el trabajo por detrás) */}
+          {/* El checkbox original oculto */}
           <input 
             type="checkbox" 
             id="shareCheckbox"
@@ -293,7 +285,7 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
           />
         </label>
 
-        {/* Menú de acompañantes que aparece al encender el interruptor */}
+        {/* Menú de acompañantes */}
         {isShared && (
           <div style={{ 
             marginTop: '8px', 
@@ -324,16 +316,14 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
                     borderRadius: '8px'
                   }}
                 >
+                  {/* AQUÍ ESTÁ EL CAMBIO PRINCIPAL */}
                   {users
-  /* Filtramos usando el 'user' que viene de tu autenticación */
-  .filter(u => u.id !== user?.id) 
-  /* Cambiamos el nombre aquí a 'u' o 'item' para evitar confusiones */
-  .map(u => (
-    <option key={u.id} value={u.id} style={{ padding: '6px' }}>
-      {u.name || u.email}
-    </option>
-  ))
-}
+                    .filter(u => u.id !== userId) 
+                    .map(u => (
+                      <option key={u.id} value={u.id} style={{ padding: '6px' }}>
+                        {u.name || u.email}
+                      </option>
+                  ))}
                 </select>
                 
               </>
@@ -347,10 +337,7 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
       </div>
 
       <label>Foto del tablero (Opcional)</label>
-      {/* --- BOTÓN DE SUBIR FOTO MEJORADO --- */}
       <div style={{ marginBottom: '16px' }}>
-        
-        {/* El input real está oculto (display: none) */}
         <input
           id="tablero-upload"
           type="file"
@@ -359,7 +346,6 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
           style={{ display: 'none' }} 
         />
         
-        {/* El "falso" botón que sí se ve y está conectado al input mediante htmlFor */}
         <label 
           htmlFor="tablero-upload"
           style={{
@@ -367,7 +353,7 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: file ? '10px' : '1.5rem', /* Menos padding si hay foto para que ocupe todo */
+            padding: file ? '10px' : '1.5rem',
             border: `2px dashed ${file ? 'var(--hot-pink-300)' : 'var(--sky-300)'}`,
             borderRadius: 'var(--radius)',
             backgroundColor: file ? 'var(--hot-pink-50)' : 'var(--sky-50)',
@@ -375,23 +361,17 @@ export default function OcrPreviewForm({ token, onCreated, users = [], standardT
             cursor: 'pointer',
             transition: 'all 0.2s ease',
             textAlign: 'center',
-            overflow: 'hidden' /* Asegura que la imagen no se salga de los bordes redondeados */
+            overflow: 'hidden'
           }}
         >
           {previewUrl ? (
-            // Si hay foto, mostramos SOLO la foto usando tu clase CSS para que respete el tamaño
             <div className="img-preview" style={{ width: '100%' }}>
               <img src={previewUrl} alt="Previsualización" style={{ margin: '0 auto', display: 'block' }} />
             </div>
           ) : (
-            // Si no hay foto, mostramos la camarita original
             <>
-              <span style={{ fontSize: '2rem', marginBottom: '8px' }}>
-                📸
-              </span>
-              <span style={{ fontWeight: '600', fontSize: '1rem' }}>
-                Toca aquí para subir la foto
-              </span>
+              <span style={{ fontSize: '2rem', marginBottom: '8px' }}>📸</span>
+              <span style={{ fontWeight: '600', fontSize: '1rem' }}>Toca aquí para subir la foto</span>
             </>
           )}
         </label>
