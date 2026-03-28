@@ -81,11 +81,10 @@ export default function HistorialMensualPage() {
         <div className="page-header">
           <div>
             <h1>Historial Mensual </h1>
-            <p className="lead">Revisa cuánto consumió cada uno en el mes exacto.</p>
           </div>
           <div className="btn-row" style={{ justifyContent: "flex-end" }}>
-            <button type="button" className="btn-ghost" onClick={logout}>
-              Volver al Dashboard
+          <button type="button" className="btn-ghost" onClick={logout}>
+              Cerrar Sesión
             </button>
           </div>
         </div>
