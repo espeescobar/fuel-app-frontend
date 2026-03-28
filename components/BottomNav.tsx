@@ -28,7 +28,6 @@ export default function BottomNav() {
 
         return (
           <Link href={link.path} key={link.name} className={`nav-item ${isActive ? "active" : ""}`}>
-            <span className="nav-icon">{link.icon}</span>
             <span>{link.name}</span>
           </Link>
         );
