@@ -110,9 +110,9 @@ export default function HistorialMensualPage() {
             <div>
               {/* Información extra de contexto */}
               {avgPrice > 0 && !isLoading && (
-                <div style={{ padding: '0.65rem', background: 'rgba(255,255,255,0.8)', borderRadius: 'var(--radius-sm)', border: '1px dashed var(--hot-pink-300)', textAlign: 'center' }}>
+                <div style={{ padding: '0.65rem', background: 'rgba(255,255,255,0.8)', borderRadius: 'var(--radius-sm)', border: '1px dashed var(--sky-300)', textAlign: 'center' }}>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Precio Promedio del Mes</span>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--hot-pink-400)' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--sky-400)' }}>
                     {formatMoney(avgPrice)} / L
                   </div>
                 </div>
