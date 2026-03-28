@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { apiFetch } from "../lib/api";
-import { getToken } from "../lib/auth";
+import { clearToken, getToken } from "../lib/auth";
 
 type ReportItem = {
   userId: string;
@@ -31,6 +31,10 @@ export default function HistorialMensualPage() {
   const [avgPrice, setAvgPrice] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  function logout() {
+    clearToken();
+    router.replace("/login");
+  }
 
   useEffect(() => {
     const t = getToken();
@@ -134,7 +138,7 @@ export default function HistorialMensualPage() {
               <tbody>
                 {isLoading ? (
                   <tr>
-                    <td colSpan={5} className="table-empty">Calculando bencina... 💅</td>
+                    <td colSpan={3} className="table-empty">Calculando bencina... 💅</td>
                   </tr>
                 ) : reportData.length > 0 ? (
                   reportData.map((user) => (
