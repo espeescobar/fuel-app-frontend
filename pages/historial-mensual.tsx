@@ -84,7 +84,7 @@ export default function HistorialMensualPage() {
         {/* Cabecera */}
         <div className="page-header">
           <div>
-            <h1>Historial Mensual </h1>
+            <h1>Historial </h1>
           </div>
           <div className="btn-row" style={{ justifyContent: "flex-end" }}>
           <button type="button" className="btn-ghost" onClick={logout}>

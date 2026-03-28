@@ -188,7 +188,7 @@ export default function ReportsPage() {
       ) : null}
 
       {/* ----------------- TABLA 1: RESUMEN MENSUAL ----------------- */}
-      <h3 style={{ marginTop: "2rem", color: 'var(--sky-400)', margin: '0 0 1.25rem', fontWeight: '800' }}>Resumen de Gastos por Usuario</h3>
+      <h3 style={{ marginTop: "2rem", color: 'var(--sky-400)', margin: '0 0 1.25rem', fontWeight: '800' }}>Resumen de Gastos</h3>
       <div className="table-wrap" style={{ marginBottom: '2rem' }}>
         <table>
           <thead>
