@@ -100,7 +100,6 @@ export default function HistorialMensualPage() {
           <h3 style={{ color: 'var(--hot-pink-400)' }}>Selecciona el mes</h3>
           <div className="row" style={{ alignItems: 'flex-end' }}>
             <div>
-              <label>Mes y Año</label>
               <input 
                 type="month" 
                 value={selectedMonth} 
@@ -122,10 +121,6 @@ export default function HistorialMensualPage() {
           </div>
         </div>
 
-        {/* Tabla de Resultados - Usando tu estilo Sky */}
-        <div className="card card--accent-sky">
-          <h3 style={{ color: 'var(--sky-400)' }}>Consumo de los usuarios</h3>
-          
           <div className="table-wrap">
             <table>
               <thead>
@@ -146,7 +141,7 @@ export default function HistorialMensualPage() {
                       <td style={{ fontWeight: 600 }}>{user.userName}</td>
                       <td>{user.litersUsed.toFixed(1)} L</td>
                       <td>
-                        <strong style={{ color: 'var(--hot-pink-400)', fontSize: '1.1rem' }}>
+                        <strong style={{ color: 'var(--sky-400)', fontSize: '1.1rem' }}>
                           {formatMoney(user.costUsed)}
                         </strong>
                       </td>
@@ -162,8 +157,6 @@ export default function HistorialMensualPage() {
               </tbody>
             </table>
           </div>
-        </div>
-
       </div>
     </div>
   );

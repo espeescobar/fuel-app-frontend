@@ -405,16 +405,18 @@ button:disabled {
   left: 0;
   right: 0;
   height: 75px;
-  background: --sky-200;
+  /* Fondo rosado con 85% de opacidad para que el blur funcione */
+  background:  var(--hot-pink-200); 
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-bottom: env(safe-area-inset-bottom); /* Para los iPhone sin botón */
+  padding-bottom: env(safe-area-inset-bottom);
   z-index: 1000;
-  box-shadow: 0 -4px 20px --sky-500;
+  /* Sombra celeste suave */
+  box-shadow:  var(--hot-pink-500); 
 }
 
 .nav-item {
@@ -445,7 +447,7 @@ button:disabled {
 
 /* Estado Activo (Cuando estás en esa página) */
 .nav-item.active {
-  color: var(--sky-500);
+  color: var(--hot-pink-400);
 }
 
 .nav-item.active .nav-icon {
