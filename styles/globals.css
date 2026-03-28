@@ -405,7 +405,7 @@ button:disabled {
   left: 0;
   right: 0;
   height: 75px;
-  background: --hoy-pink-400;
+  background: --sky-200;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-top: 1px solid var(--border);
