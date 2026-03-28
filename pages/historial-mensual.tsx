@@ -141,7 +141,7 @@ export default function HistorialMensualPage() {
                       <td style={{ fontWeight: 600 }}>{user.userName}</td>
                       <td>{user.litersUsed.toFixed(1)} L</td>
                       <td>
-                        <strong style={{ color: 'var(--sky-400)', fontSize: '1.1rem' }}>
+                        <strong style={{ color: 'var(--hot-pink-400)', fontSize: '1.1rem' }}>
                           {formatMoney(user.costUsed)}
                         </strong>
                       </td>

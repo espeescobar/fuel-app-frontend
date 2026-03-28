@@ -406,7 +406,7 @@ button:disabled {
   right: 0;
   height: 75px;
   /* Fondo rosado con 85% de opacidad para que el blur funcione */
-  background:  var(--hot-pink-200); 
+  background:  var(--hot-pink-100); 
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-top: 1px solid var(--border);

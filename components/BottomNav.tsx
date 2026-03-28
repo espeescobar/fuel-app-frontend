@@ -9,17 +9,14 @@ export default function BottomNav() {
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: "🚗"
     },
     {
       name: "Reportes",
       path: "/reports",
-      icon: "📊"
     },
     {
       name: "Mensual",
       path: "/historial-mensual",
-      icon: "📅"
     }
   ];
 
