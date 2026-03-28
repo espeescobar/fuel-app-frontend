@@ -426,7 +426,7 @@ button:disabled {
   justify-content: center;
   gap: 4px;
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   flex: 1;
   height: 100%;
