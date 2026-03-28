@@ -405,7 +405,7 @@ button:disabled {
   left: 0;
   right: 0;
   height: 75px;
-  background: rgba(255, 255, 255, 0.85);
+  background: --sky-200;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-top: 1px solid var(--border);
@@ -445,7 +445,7 @@ button:disabled {
 
 /* Estado Activo (Cuando estás en esa página) */
 .nav-item.active {
-  color: var(--hot-pink-500);
+  color: var(--sky-500);
 }
 
 .nav-item.active .nav-icon {

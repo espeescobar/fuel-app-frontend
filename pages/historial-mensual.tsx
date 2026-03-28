@@ -80,11 +80,11 @@ export default function HistorialMensualPage() {
         {/* Cabecera */}
         <div className="page-header">
           <div>
-            <h1>Historial Mensual 📅</h1>
+            <h1>Historial Mensual </h1>
             <p className="lead">Revisa cuánto consumió cada uno en el mes exacto.</p>
           </div>
           <div className="btn-row" style={{ justifyContent: "flex-end" }}>
-            <button type="button" className="btn-ghost" onClick={() => router.push("/dashboard")}>
+            <button type="button" className="btn-ghost" onClick={logout}>
               Volver al Dashboard
             </button>
           </div>
@@ -142,8 +142,6 @@ export default function HistorialMensualPage() {
                     <tr key={user.userId}>
                       <td style={{ fontWeight: 600 }}>{user.userName}</td>
                       <td>{user.litersUsed.toFixed(1)} L</td>
-                      <td>{formatMoney(user.ownCost)}</td>
-                      <td>{formatMoney(user.sharedCost)}</td>
                       <td>
                         <strong style={{ color: 'var(--hot-pink-400)', fontSize: '1.1rem' }}>
                           {formatMoney(user.costUsed)}
