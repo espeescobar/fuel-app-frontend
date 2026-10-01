@@ -62,15 +62,14 @@ export function parseMoney(raw: unknown): number | null {
       lastComma > lastDot
         ? s.replace(/\./g, "").replace(",", ".")
         : s.replace(/,/g, "");
-      } else if (hasComma) {
-        const parts = s.split(",");
-        if (parts.length > 2 || parts[1]?.length === 3) {
-          // 42,000 / 1,234,567 → miles
-          normalized = s.replace(/,/g, "");
-        } else {
-          normalized = s.replace(",", ".");
-        }
-      }
+  } else if (hasComma) {
+    const parts = s.split(",");
+    if (parts.length > 2 || parts[1]?.length === 3) {
+      // 42,000 / 1,234,567 → miles
+      normalized = s.replace(/,/g, "");
+    } else {
+      normalized = s.replace(",", ".");
+    }
   } else if (hasDot) {
     const parts = s.split(".");
     if (parts.length > 2) {
