@@ -34,17 +34,23 @@ export async function apiFetch<T>(
     headers: finalHeaders,
   });
 
-  if (!res.ok) {
-    let detail: any = null;
+  const raw = await res.text();
+  let data: any = null;
+  if (raw) {
     try {
-      detail = await res.json();
+      data = JSON.parse(raw);
     } catch {
-      detail = await res.text();
+      data = raw;
     }
-    // Si el error es un objeto, intentamos sacar el mensaje específico
-    const message = detail?.error || detail?.message || (typeof detail === "string" ? detail : JSON.stringify(detail));
+  }
+
+  if (!res.ok) {
+    const message =
+      (data && typeof data === "object" && (data.error || data.message)) ||
+      (typeof data === "string" && data.trim() ? data : null) ||
+      `Error ${res.status}`;
     throw new Error(message);
   }
 
-  return (await res.json()) as T;
+  return (data ?? {}) as T;
 }

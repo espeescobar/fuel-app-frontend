@@ -372,7 +372,10 @@ export default function ReportsPage() {
                     <td>${formatDec(f.pricePerLiter)} / L</td>
                     <td style={{ textAlign: 'center' }}>
                       <button 
-                        onClick={() => handleDeleteFillup(f.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteFillup(f.id);
+                        }}
                         style={{ 
                           background: 'none', border: 'none', cursor: 'pointer', 
                           fontSize: '1.2rem', padding: '4px', filter: 'grayscale(0.2)' 

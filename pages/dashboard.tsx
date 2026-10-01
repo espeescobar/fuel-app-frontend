@@ -4,6 +4,12 @@ import { useRouter } from "next/router";
 import { apiFetch } from "../lib/api";
 import { clearToken, getToken } from "../lib/auth";
 import OcrPreviewForm from "../components/OcrPreviewForm";
+import {
+  parseLiters,
+  parseMoney,
+  PRICE_PER_LITER_MAX,
+  PRICE_PER_LITER_MIN
+} from "../lib/parseNumber";
 
 type MeResp = { id: string; email: string; name?: string; vehicleId: string };
 type ReadingItem = {
@@ -45,6 +51,14 @@ export default function DashboardPage() {
   const formatDec = (val: any) => {
     const num = Number(val);
     return isNaN(num) ? "0.00" : num.toFixed(2);
+  };
+
+  // Pesos chilenos: $1.193 (valores muy bajos se muestran con decimales para detectar errores)
+  const formatCLP = (val: any) => {
+    const num = Number(val);
+    if (!Number.isFinite(num)) return "---";
+    if (Math.abs(num) < 100) return `$${num.toFixed(2)}`;
+    return `$${Math.round(num).toLocaleString("es-CL")}`;
   };
 
   useEffect(() => {
@@ -102,16 +116,36 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  const parsedLiters = parseLiters(liters);
+  const parsedTotalCost = parseMoney(totalCost);
+  const previewPrice =
+    parsedLiters && parsedTotalCost ? parsedTotalCost / parsedLiters : null;
+  const previewLooksWrong =
+    previewPrice !== null &&
+    (previewPrice < PRICE_PER_LITER_MIN || previewPrice > PRICE_PER_LITER_MAX);
+
   async function onCreateFillUp() {
     if (!token) return;
     setStatus(null);
+
+    if (parsedLiters === null || parsedTotalCost === null) {
+      setStatus("Error: revisa litros y costo total. Ejemplo: 35,2 litros y 42000 (o 42.000) pesos.");
+      return;
+    }
+    if (previewLooksWrong && previewPrice !== null) {
+      setStatus(
+        `Error: el precio por litro quedaría en ${formatCLP(previewPrice)}. Si el total era $42.000, escríbelo como 42000 o 42.000.`
+      );
+      return;
+    }
+
     try {
       await apiFetch<{ id: string }>("/api/fill-ups", {
         method: "POST",
         token,
         body: JSON.stringify({
-          liters: Number(liters),
-          totalCost: Number(totalCost),
+          liters: parsedLiters,
+          totalCost: parsedTotalCost,
           filledAt: filledAt ? new Date(filledAt).toISOString() : undefined
         })
       });
@@ -174,8 +208,8 @@ export default function DashboardPage() {
             </span>
             <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--sky-500)', marginTop: '0.25rem' }}>
               {currentAvgPrice !== null && currentAvgPrice > 0 
-                ? `$${formatDec(currentAvgPrice)} / L` 
-                : (fillups.length > 0 ? `$${formatDec(fillups[0].pricePerLiter)} / L` : '---')}
+                ? `${formatCLP(currentAvgPrice)} / L` 
+                : (fillups.length > 0 ? `${formatCLP(fillups[0].pricePerLiter)} / L` : '---')}
             </span>
           </div>
           
@@ -229,13 +263,20 @@ export default function DashboardPage() {
         <div className="row">
           <div>
             <label>Litros</label>
-            <input value={liters} onChange={(e) => setLiters(e.target.value)} placeholder="ej: 35.2" />
+            <input value={liters} onChange={(e) => setLiters(e.target.value)} placeholder="ej: 35,2" />
           </div>
           <div>
-            <label>Costo total</label>
-            <input value={totalCost} onChange={(e) => setTotalCost(e.target.value)} placeholder="ej: 25000" />
+            <label>Costo total (pesos)</label>
+            <input value={totalCost} onChange={(e) => setTotalCost(e.target.value)} placeholder="ej: 42000 o 42.000" />
           </div>
         </div>
+
+        {previewPrice !== null ? (
+          <p style={{ margin: "0 0 12px", fontSize: "0.9rem", color: previewLooksWrong ? "var(--hot-pink-400)" : "var(--text-muted)" }}>
+            Precio estimado: {formatCLP(previewPrice)} / L
+            {previewLooksWrong ? " — revisa el total; el punto en Chile es de miles (42.000 = 42000)." : ""}
+          </p>
+        ) : null}
 
         <label>Fecha y hora (opcional)</label>
         <input type="datetime-local" value={filledAt} onChange={(e) => setFilledAt(e.target.value)} />
